@@ -30,6 +30,7 @@ The type if node is oddevennode ,and not Node .
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include <conio.h>
 
 struct oddevennode{
 	int data;
@@ -39,6 +40,62 @@ struct oddevennode{
 };
 
 int * oddeven_sll(struct oddevennode *head){
-
-	return NULL;
+	struct oddevennode *temp1;
+	int c_e = 0, c_o = 0, *result;
+	result = (int *)malloc(2 * sizeof(int));
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	temp1 = head->next;
+	if ((head->data) % 2 == 0)
+		c_e++;
+	else
+		c_o++;
+	while (head->next != NULL)
+	{
+		if ((head->data) % 2 == 0)
+		{
+			while ((temp1->data) % 2 != 0&&temp1->next!=NULL)
+				temp1 = temp1->next;
+			if (temp1 != NULL&&(temp1->data)%2==0)
+			{
+				head->random = temp1;
+				c_e++;
+			}
+			if (temp1 == NULL && (temp1->data)%2==0)
+			{
+				head->random = NULL;
+				c_e++;
+			}
+			head = head->next;
+			if (head->next != NULL)
+				temp1 = head->next;
+		}
+		else
+		{
+			while ((temp1->data) % 2 == 0&&temp1->next!=NULL)
+				temp1 = temp1->next;
+			if (temp1 != NULL&&(temp1->data)%2!=0)
+			{
+				head->random = temp1;
+				c_o++;
+			}
+			if (temp1 == NULL && (temp1->data)%2!=0)
+			{
+				head->random = NULL;
+				c_o++;
+			}
+			head = head->next;
+			if (head->next != NULL)
+				temp1 = head->next;
+		}
+	}
+	if ((head->data) % 2 == 0)
+		c_e++;
+	else
+		c_o++;
+	result[0] = c_o;
+	result[1] = c_e;
+	return result;
 }

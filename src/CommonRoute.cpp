@@ -45,11 +45,67 @@ First Island in DTD ie 'D' occurs alphabatically before 'H' and 'Z')
 */
 
 #include <stdlib.h>
-#include <stdlib.h>
+#include <conio.h>
 #include <stdio.h>
 
 
 char * find_common_route(char * hacklist, char *codelist, int *cost){
-	return NULL;
+	int i, j, k = 0, count,count1,p=0,*arr,*arr1,temp;
+	char *result;
+	arr = (int *)malloc(sizeof(int));
+	arr1 = (int *)malloc(sizeof(int));
+	result = (char *)malloc(sizeof(char));
+	if (hacklist == NULL || codelist == NULL||cost<=0)
+		return NULL;
+	for (i = 0; hacklist[i] != '\0'; i++)
+	{
+		count = 0;
+		count1 = 0;
+		for (j = 0; codelist[j] != '\0'; j++)
+		{
+			if (hacklist[i] == codelist[j])
+			{
+				while (hacklist[i] == codelist[j] && hacklist[i] != '\0'&&codelist[j] != '\0')
+				{
+					count++;
+					i++;
+					j++;
+					count1 = count1 + (hacklist[i] - 96);
+				}
+				arr = (int *)realloc(arr, (k + 1)*sizeof(int));
+				arr[k] = count;
+				k++;
+				arr1 = (int *)realloc(arr1, (p + 1)*sizeof(int));
+				arr1[p] = count;
+				p++;
+			}
+		}
+	}
+	for (i = 0; i < k; i++)
+	{
+		for (j = i+1; j < k; j++)
+		{
+			if (arr[i]>arr[j])
+			{
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+	for (i = 0; i < p; i++)
+	{
+		for (j = i + 1; j < p; j++)
+		{
+			if (arr1[i]>arr1[j])
+			{
+				temp = arr1[i];
+				arr1[i] = arr1[j];
+				arr1[j] = temp;
+			}
+		}
+	}
+	*cost = arr1[p - 1];
+	return result;
 }
 
